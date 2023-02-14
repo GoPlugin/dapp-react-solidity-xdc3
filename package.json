@@ -4,7 +4,9 @@
   "description": "Dapp Sample Implementation using npm package react-solidity-xdc3",
   "main": "index.js",
   "scripts": {
-    "deploy": "npx hardhat run scripts/deploy.js ",
+    "deploy0": "npx hardhat run scripts/deploy0.js ",
+    "deploy1": "npx hardhat run scripts/deploy1.js ",
+    "deploy2": "npx hardhat run scripts/deploy2.js ",
     "build": "rollup -c",
     "test": "NODE_ENV=test hardhat test"
   },

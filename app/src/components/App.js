@@ -1,9 +1,13 @@
 import { ethers } from 'ethers';
 import './App.css';
 import Sample from './Sample/Sample';
+import Fractional from './Fractional/fractional';
 import Header from './Header/Header';
-import { abi } from '../artifacts/contracts/SampleContract.sol/SampleContract.json';
-import { SampleContract as address } from '../output.json';
+import { abi as abi0 } from '../artifacts/contracts/SampleContract.sol/SampleContract.json';
+import { abi as abi2 } from '../artifacts/contracts/NFTGenerator.sol/NFTGenerator.json';
+import { SampleContract as address0 } from '../output0.json';
+// import { RealEstateContract as address1 } from '../output1.json';
+import { NFTGenerator as address2 } from '../output2.json';
 
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -29,7 +33,8 @@ function App() {
     const instance = await connectWallet(connectOptions);
     const provider = new ethers.providers.Web3Provider(instance);
     const signer = provider.getSigner();
-    const sample = await createContractInstance(address, abi, provider);
+    const sample = await createContractInstance(address0, abi0, provider);
+    const nft = await createContractInstance(address2, abi2, provider);
     const account = signer.getAddress();
     setethereumContext({ provider, sample, account })
     log("Connect", "Get Address", await signer.getAddress());
@@ -49,6 +54,7 @@ function App() {
       <section className="App-content">
         <EthereumContext.Provider value={ethereumContext}>
           <Sample />
+          <Fractional />
         </EthereumContext.Provider>
       </section>
       <ToastContainer hideProgressBar={true} />
