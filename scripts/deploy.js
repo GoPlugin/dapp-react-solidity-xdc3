@@ -8,9 +8,13 @@ async function deploy(name, ...params) {
 
 async function main() {
     const sample = await deploy('SampleContract', "0x33f4212b027e22af7e6ba21fc572843c0d701cd1");
-    console.log("sample deployed to:", sample.address);
-    writeFileSync('output0.json', JSON.stringify({
-        SampleContract: sample.address
+    const realEstate = await deploy('RealEstateToken', process.env.OWNER_ADDRESS, "aryan", "ARX", "0x33f4212b027e22af7e6ba21fc572843c0d701cd1");
+    const nftGen = await deploy('NFTGenerator', "0x33f4212b027e22af7e6ba21fc572843c0d701cd1");
+    console.log("nftGen deployed to:", nftGen.address);
+    writeFileSync('output.json', JSON.stringify({
+        SampleContract: sample.address,
+        RealEstateToken: realEstate.address,
+        NFTGenerator: sample.address
     }, null, 2));
 
 }

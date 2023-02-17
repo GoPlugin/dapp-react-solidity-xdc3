@@ -4,10 +4,9 @@ import Sample from './Sample/Sample';
 import Fractional from './Fractional/fractional';
 import Header from './Header/Header';
 import { abi as abi0 } from '../artifacts/contracts/SampleContract.sol/SampleContract.json';
+import { abi as abi1 } from '../artifacts/contracts/RealEstateToken.sol/RealEstateToken.json';
 import { abi as abi2 } from '../artifacts/contracts/NFTGenerator.sol/NFTGenerator.json';
-import { SampleContract as address0 } from '../output0.json';
-// import { RealEstateContract as address1 } from '../output1.json';
-import { NFTGenerator as address2 } from '../output2.json';
+import { SampleContract as address0, RealEstateToken as address1, NFTGenerator as address2} from '../output.json';
 
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -30,30 +29,32 @@ function App() {
 
   const connect = async (event) => {
     event.preventDefault();
+    setconnecting(true);
     const instance = await connectWallet(connectOptions);
     const provider = new ethers.providers.Web3Provider(instance);
     const signer = provider.getSigner();
     const sample = await createContractInstance(address0, abi0, provider);
-    const nft = await createContractInstance(address2, abi2, provider);
+    const estateContract = await createContractInstance(address1, abi2, provider);
+    const nftContract = await createContractInstance(address2, abi2, provider);
     const account = signer.getAddress();
-    setethereumContext({ provider, sample, account })
+    setethereumContext({ provider, sample, account, estateContract, nftContract })
     log("Connect", "Get Address", await signer.getAddress());
-    setconnecting(true);
+    setconnecting(false);
   }
   return (
     <div className="App">
       <Header />
       <header className="App-header">
-        <h1>Sample Decentralized Application </h1>
+        <h1>Real Estate dApplication </h1>
         <p>Powered by react-solidity-xdc3 Package</p>
-        <p>Contributed by GoPlugin(www.goplugin.co)</p>
+        <p>Edited by Aryan Kharbanda</p>
         <form onSubmit={connect}>
           <button type="submit" disabled={connecting}>{connecting ? 'Connecting...' : 'Connect'}</button>
         </form>
       </header>
       <section className="App-content">
         <EthereumContext.Provider value={ethereumContext}>
-          <Sample />
+          {/* <Sample /> */}
           <Fractional />
         </EthereumContext.Provider>
       </section>
